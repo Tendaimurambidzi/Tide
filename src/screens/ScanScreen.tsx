@@ -4,27 +4,39 @@ import { colors } from '../utils/colors';
 
 const ScanScreen = () => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    { id: 1, title: 'Beach Day Adventures', user: 'User1' },
+    { id: 2, title: 'Workout Motivation', user: 'User2' },
+  ]);
 
   const handleSearch = () => {
-    // Placeholder search
-    setResults([{ id: 1, title: 'Sample result' }]);
+    // Placeholder
+    console.log('Searching for:', query);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Scan Search</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Search..."
-        value={query}
-        onChangeText={setQuery}
-        onSubmitEditing={handleSearch}
-      />
+      <Text style={styles.title}>Scan</Text>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search posts, users..."
+          value={query}
+          onChangeText={setQuery}
+          onSubmitEditing={handleSearch}
+          placeholderTextColor={colors.textSecondary}
+        />
+      </View>
       <FlatList
         data={results}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text style={styles.result}>{item.title}</Text>}
+        renderItem={({ item }) => (
+          <View style={styles.resultCard}>
+            <Text style={styles.resultTitle}>{item.title}</Text>
+            <Text style={styles.resultUser}>by {item.user}</Text>
+          </View>
+        )}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -37,25 +49,44 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
     color: colors.text,
+    fontWeight: 'bold',
+  },
+  searchContainer: {
+    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 20,
-  },
-  result: {
+    borderColor: colors.border,
+    borderRadius: 25,
+    padding: 15,
     fontSize: 16,
+    backgroundColor: colors.cardBackground,
     color: colors.text,
-    padding: 10,
-    backgroundColor: colors.button,
-    marginBottom: 10,
+  },
+  resultCard: {
+    backgroundColor: colors.cardBackground,
     borderRadius: 10,
+    padding: 15,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  resultTitle: {
+    fontSize: 18,
+    color: colors.text,
+    fontWeight: 'bold',
+  },
+  resultUser: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    marginTop: 5,
   },
 });
 
