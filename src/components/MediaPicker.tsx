@@ -4,20 +4,20 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { colors } from '../utils/colors';
 
 interface MediaPickerProps {
-  onMediaSelected?: (uri: string) => void;
+  onMediaSelected?: (uri: string, type: string) => void;
 }
 
 const MediaPicker: React.FC<MediaPickerProps> = ({ onMediaSelected }) => {
   const pickImage = () => {
-    launchImageLibrary({ mediaType: 'photo' }, (response) => {
+    launchImageLibrary({ mediaType: 'mixed' }, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log('User cancelled media picker');
       } else if (response.errorMessage) {
-        console.log('ImagePicker Error: ', response.errorMessage);
+        console.log('MediaPicker Error: ', response.errorMessage);
       } else {
-        const uri = response.assets?.[0]?.uri;
-        if (uri && onMediaSelected) {
-          onMediaSelected(uri);
+        const asset = response.assets?.[0];
+        if (asset?.uri && onMediaSelected) {
+          onMediaSelected(asset.uri, asset.type || 'image');
         }
         // Firebase storage placeholder
       }
@@ -25,15 +25,15 @@ const MediaPicker: React.FC<MediaPickerProps> = ({ onMediaSelected }) => {
   };
 
   const takePhoto = () => {
-    launchCamera({ mediaType: 'photo' }, (response) => {
+    launchCamera({ mediaType: 'mixed' }, (response) => {
       if (response.didCancel) {
         console.log('User cancelled camera');
       } else if (response.errorMessage) {
         console.log('Camera Error: ', response.errorMessage);
       } else {
-        const uri = response.assets?.[0]?.uri;
-        if (uri && onMediaSelected) {
-          onMediaSelected(uri);
+        const asset = response.assets?.[0];
+        if (asset?.uri && onMediaSelected) {
+          onMediaSelected(asset.uri, asset.type || 'image');
         }
         // Firebase storage placeholder
       }

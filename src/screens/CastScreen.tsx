@@ -7,6 +7,7 @@ import MediaPicker from '../components/MediaPicker';
 const CastScreen = () => {
   const [content, setContent] = useState('');
   const [mediaUri, setMediaUri] = useState<string | undefined>();
+  const [mediaType, setMediaType] = useState<string | undefined>();
   const { addPost } = usePosts();
 
   const handlePost = () => {
@@ -16,9 +17,11 @@ const CastScreen = () => {
         timestamp: new Date(),
         userAvatar: 'https://via.placeholder.com/60/FFD700/000000?text=You',
         media: mediaUri,
+        mediaType,
       });
       setContent('');
       setMediaUri(undefined);
+      setMediaType(undefined);
     }
   };
 
@@ -38,7 +41,7 @@ const CastScreen = () => {
           <Image source={{ uri: mediaUri }} style={styles.mediaPreview} />
         )}
       </View>
-      <MediaPicker onMediaSelected={setMediaUri} />
+      <MediaPicker onMediaSelected={(uri, type) => { setMediaUri(uri); setMediaType(type); }} />
       <TouchableOpacity style={styles.postButton} onPress={handlePost}>
         <Text style={styles.postText}>Cast</Text>
       </TouchableOpacity>

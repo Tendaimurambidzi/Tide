@@ -8,6 +8,7 @@ interface Post {
   echoCount: number;
   userAvatar: string;
   media?: string;
+  mediaType?: string;
 }
 
 interface PostContextType {

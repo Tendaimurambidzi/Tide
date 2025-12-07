@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../utils/colors';
 
@@ -11,7 +12,8 @@ interface PostProps {
     splashCount: number;
     echoCount: number;
     userAvatar: string;
-    media?: string; // Placeholder for media
+    media?: string;
+    mediaType?: string;
   };
 }
 
@@ -29,8 +31,17 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <View style={styles.header}>
           <Image source={{ uri: post.userAvatar }} style={styles.avatar} />
         </View>
-        <Text style={styles.content}>{post.content}</Text>
-        {post.media && <Image source={{ uri: post.media }} style={styles.media} />}
+      <Text style={styles.content}>{post.content}</Text>
+      {post.media && post.mediaType?.startsWith('video') ? (
+        <Video
+          source={{ uri: post.media }}
+          style={styles.media}
+          controls={true}
+          resizeMode="contain"
+        />
+      ) : post.media ? (
+        <Image source={{ uri: post.media }} style={styles.media} />
+      ) : null}
       </View>
       <View style={styles.separator} />
       <View style={styles.lowerSection}>
