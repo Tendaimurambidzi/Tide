@@ -1,52 +1,65 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# TideApp
 
-# Getting Started
+A social media app built with React Native, featuring a yellow theme, custom UI elements, horizontal swipe posts, media picker, and Firebase integration.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Yellow Theme**: Custom color scheme with yellow primary colors.
+- **Custom UI**: 
+  - Tide Home (lighthouse icon)
+  - Cast Post (satellite icon)
+  - Scan Search (telescope icon)
+  - Harbour Profile (anchor icon)
+- **Horizontal Swipe Posts**: Swipe through posts using Swiper.
+- **Timestamps**: Display time ago for posts.
+- **Media Picker**: Pick images from gallery or camera.
+- **Firebase Placeholders**: Ready for Firebase auth and storage.
+- **Semicircular Buttons**: Rounded buttons for actions.
+- **Red Cancel/Close**: Red buttons for cancellation.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Getting Started
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Prerequisites
 
-```sh
-# Using npm
-npm start
+- Node.js >= 20
+- React Native development environment set up
 
-# OR using Yarn
-yarn start
-```
+### Installation
 
-## Step 2: Build and run your app
+1. Install dependencies:
+   ```sh
+   npm install
+   ```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+2. Start Metro:
+   ```sh
+   npm start
+   ```
 
-### Android
+3. Run on Android:
+   ```sh
+   npm run android
+   ```
 
-```sh
-# Using npm
-npm run android
+4. Build APK:
+   ```sh
+   cd android
+   ./gradlew assembleRelease
+   ```
 
-# OR using Yarn
-yarn android
-```
+## Project Structure
 
-### iOS
+- `src/screens/`: HomeScreen, CastScreen, ScanScreen, HarbourScreen
+- `src/components/`: Post, MediaPicker
+- `src/utils/`: colors.ts
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Dependencies
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
+- React Navigation
+- React Native Vector Icons
+- React Native Image Picker
+- Firebase
+- React Native Swiper
 
 For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
