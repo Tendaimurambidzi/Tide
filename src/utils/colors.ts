@@ -3,6 +3,8 @@ export const colors = {
   secondary: '#FFA500', // Orange
   background: '#FFFFFF', // White for clean look
   cardBackground: '#F9F9F9', // Light gray for cards
+  deepYellow: '#FF3800', // Coquelicot for upper post area
+  separatorBlue: '#1E90FF', // Blue for separator line
   text: '#333333', // Dark gray for text
   textSecondary: '#666666', // Lighter gray
   accent: '#FF0000', // Red for cancel/close

@@ -25,22 +25,27 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   return (
     <View style={styles.card}>
-      <View style={styles.header}>
-        <Image source={{ uri: post.userAvatar }} style={styles.avatar} />
+      <View style={styles.upperSection}>
+        <View style={styles.header}>
+          <Image source={{ uri: post.userAvatar }} style={styles.avatar} />
+        </View>
+        <Text style={styles.content}>{post.content}</Text>
+        {post.media && <Image source={{ uri: post.media }} style={styles.media} />}
       </View>
-      <Text style={styles.content}>{post.content}</Text>
-      {post.media && <Image source={{ uri: post.media }} style={styles.media} />}
-      <View style={styles.footer}>
-        <Text style={styles.timestamp}>{timeAgo(post.timestamp)}</Text>
-        <View style={styles.interactions}>
-          <TouchableOpacity style={styles.interaction}>
-            <Icon name="water-drop" size={24} color={colors.primary} />
-            <Text style={styles.interactionText}>{post.splashCount}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.interaction}>
-            <Icon name="volume-up" size={24} color={colors.primary} />
-            <Text style={styles.interactionText}>{post.echoCount}</Text>
-          </TouchableOpacity>
+      <View style={styles.separator} />
+      <View style={styles.lowerSection}>
+        <View style={styles.footer}>
+          <Text style={styles.timestamp}>{timeAgo(post.timestamp)}</Text>
+          <View style={styles.interactions}>
+            <TouchableOpacity style={styles.interaction}>
+              <Icon name="water-drop" size={24} color={colors.primary} />
+              <Text style={styles.interactionText}>{post.splashCount}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.interaction}>
+              <Icon name="volume-up" size={24} color={colors.primary} />
+              <Text style={styles.interactionText}>{post.echoCount}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -52,12 +57,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.cardBackground,
     margin: 10,
     borderRadius: 10,
-    padding: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  upperSection: {
+    backgroundColor: colors.deepYellow,
+    padding: 15,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   header: {
     alignItems: 'center',
@@ -81,6 +91,16 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     marginBottom: 10,
+  },
+  separator: {
+    height: 2,
+    backgroundColor: colors.separatorBlue,
+  },
+  lowerSection: {
+    backgroundColor: colors.background,
+    padding: 15,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   footer: {
     flexDirection: 'row',
