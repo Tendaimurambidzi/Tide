@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { colors } from '../utils/colors';
+import { usePosts } from '../context/PostContext';
 import MediaPicker from '../components/MediaPicker';
 
 const CastScreen = () => {
   const [content, setContent] = useState('');
+  const [mediaUri, setMediaUri] = useState<string | undefined>();
+  const { addPost } = usePosts();
 
   const handlePost = () => {
-    // Firebase placeholder
-    console.log('Posting:', content);
-    setContent('');
+    if (content.trim() || mediaUri) {
+      addPost({
+        content,
+        timestamp: new Date(),
+        userAvatar: 'https://via.placeholder.com/60/FFD700/000000?text=You',
+        media: mediaUri,
+      });
+      setContent('');
+      setMediaUri(undefined);
+    }
   };
 
   return (
@@ -24,8 +34,11 @@ const CastScreen = () => {
           multiline
           placeholderTextColor={colors.textSecondary}
         />
+        {mediaUri && (
+          <Image source={{ uri: mediaUri }} style={styles.mediaPreview} />
+        )}
       </View>
-      <MediaPicker />
+      <MediaPicker onMediaSelected={setMediaUri} />
       <TouchableOpacity style={styles.postButton} onPress={handlePost}>
         <Text style={styles.postText}>Cast</Text>
       </TouchableOpacity>
@@ -65,6 +78,12 @@ const styles = StyleSheet.create({
     height: 100,
     fontSize: 16,
     color: colors.text,
+  },
+  mediaPreview: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+    marginTop: 10,
   },
   postButton: {
     backgroundColor: colors.primary,

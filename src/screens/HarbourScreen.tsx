@@ -4,7 +4,7 @@ import { colors } from '../utils/colors';
 import MediaPicker from '../components/MediaPicker';
 
 const HarbourScreen = () => {
-  const [profilePic, setProfilePic] = useState('https://via.placeholder.com/120/FFD700/000000?text=Profile');
+  const [profilePic, setProfilePic] = useState('https://via.placeholder.com/120/FFD700/000000?text=You');
 
   const handleEditPic = () => {
     // Placeholder for editing

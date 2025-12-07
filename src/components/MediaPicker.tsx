@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { colors } from '../utils/colors';
 
-const MediaPicker = () => {
+interface MediaPickerProps {
+  onMediaSelected?: (uri: string) => void;
+}
+
+const MediaPicker: React.FC<MediaPickerProps> = ({ onMediaSelected }) => {
   const pickImage = () => {
     launchImageLibrary({ mediaType: 'photo' }, (response) => {
       if (response.didCancel) {
@@ -11,7 +15,10 @@ const MediaPicker = () => {
       } else if (response.errorMessage) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else {
-        console.log('Selected image:', response.assets?.[0]?.uri);
+        const uri = response.assets?.[0]?.uri;
+        if (uri && onMediaSelected) {
+          onMediaSelected(uri);
+        }
         // Firebase storage placeholder
       }
     });
@@ -24,7 +31,10 @@ const MediaPicker = () => {
       } else if (response.errorMessage) {
         console.log('Camera Error: ', response.errorMessage);
       } else {
-        console.log('Captured image:', response.assets?.[0]?.uri);
+        const uri = response.assets?.[0]?.uri;
+        if (uri && onMediaSelected) {
+          onMediaSelected(uri);
+        }
         // Firebase storage placeholder
       }
     });
